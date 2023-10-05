@@ -33,9 +33,9 @@ exports.register = async (req, res) => {
   };
   
 exports.login = async (req, res) => {
-    const { email, password, role } = req.body;
+    const { email, password } = req.body;
   
-    if (!email || !password || !role) {
+    if (!email || !password) {
       res.status(400).json({ error: "fill the details" });
     }
   
