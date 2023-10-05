@@ -33,10 +33,9 @@ exports.register = async (req, res) => {
   };
   
 exports.login = async (req, res) => {
-    // console.log(req.body);
-    const { email, password } = req.body;
+    const { email, password, role } = req.body;
   
-    if (!email || !password) {
+    if (!email || !password || !role) {
       res.status(400).json({ error: "fill the details" });
     }
   
@@ -74,4 +73,14 @@ exports.login = async (req, res) => {
       console.log(error.message);
     }
   };
+
+  exports.logout = async (req, res) => {
+    try{
+      res.status(200).json({ message: "Logout was successful" });
+    }
+    catch(err){
+      console.log(error.message); 
+    }
+  }
+
   
