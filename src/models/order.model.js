@@ -34,7 +34,7 @@ const orderSchema = new mongoose.Schema({
         type: String
     },
     approvalStatus: {
-        type: Boolean
+        type: String
     },
     voucherId:{
         type: String

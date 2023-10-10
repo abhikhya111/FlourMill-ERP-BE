@@ -6,7 +6,7 @@ exports.placeOrder = async (req, res, next) => {
     } = req.body;
     const myId = Math.floor(Math.random() * 100);
     const voucherId = Math.floor(Math.random() * 100);
-
+    console.log("nono")
     try {
         const order = await OrderModel.create({
             id: myId,
@@ -19,17 +19,10 @@ exports.placeOrder = async (req, res, next) => {
             firmName,
             orderType,
             quantity,
-            approvalStatus: false,
+            approvalStatus: "Pending",
             voucherId:voucherId
         });
-        // const purchase = await PurchaseModel.create({
-        //     id: myId,
-        //     voucherId: Math.floor(Math.random() * 100),
-        //     productName: productName,
-        //     date: Date.now(),
-        //     party: "Party",
-        //     metCenter: "Center"
-        // });
+        console.log("orders", order)
         res.status(201).json({ data: order, status: "success" });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -40,6 +33,7 @@ exports.listOrders = async (req, res, next) => {
     
     try{
         const orders = await OrderModel.find()
+        console.log("orderssss", orders)
         if(orders.length > 0){
             res.status(201).json({ data: orders, status: "success" });
         }
@@ -105,7 +99,7 @@ exports.approveOrder = async (req, res, next) => {
         if(orders.length > 0){
             const order = await OrderModel.updateMany(
                 { id: req.params.id },
-                { $set: { approvalStatus: true } }
+                { $set: { approvalStatus: "Approved" } }
              );
             res.status(201).json({ data: order, status: "Order Approved" });
         }
@@ -126,7 +120,7 @@ exports.disapproveOrder = async (req, res, next) => {
         if(orders.length > 0){
             const order = await OrderModel.updateMany(
                 { id: req.params.id },
-                { $set: { approvalStatus: false } }
+                { $set: { approvalStatus: "Disapprove" } }
              );
             res.status(201).json({ data: order, status: "Order Approved" });
         }
