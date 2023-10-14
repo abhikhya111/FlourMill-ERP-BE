@@ -20,10 +20,12 @@ app.get('/', (req, res, next)=>{
 const orderRouter = require("./src/routes/order.route");
 const userRouter = require("./src/routes/user.route");
 const purchaseRouter = require("./src/routes/purchase.route")
+const voucherRouter = require("./src/routes/voucher.route")
 
 app.use("/api/orders", orderRouter);
 app.use("/api/users", userRouter);
 app.use("/api/purchase", purchaseRouter);
+app.use("/api/voucher", voucherRouter);
 
 const URL = `mongodb+srv://abhikhya:ashi3666@crud.yjywtf4.mongodb.net/dummyDatabase?retryWrites=true&w=majority`
     try {
@@ -32,8 +34,6 @@ const URL = `mongodb+srv://abhikhya:ashi3666@crud.yjywtf4.mongodb.net/dummyDatab
     } catch(error) {
         console.log('Error: ', error.message);
     }
-
-
 
 
 // Start the server

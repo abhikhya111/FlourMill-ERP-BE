@@ -1,7 +1,42 @@
 const mongoose = require('mongoose');
 
-const orderSchema = new mongoose.Schema({
+const voucherSchema = new mongoose.Schema({
     
+    id: {
+        type: Number
+    },
+    orderId: {
+        type: Number
+    },
+    name: {
+        type: String,
+    },
+    quantity: {
+        type: Number
+    },
+    unit: {
+        type: String
+    },
+    price: {
+        type: Number
+    },
+    billingWeight: {
+        type: Number
+    },
+    kantaWeight: {
+        type: Number
+    },
+    qualityClaimPercent: {
+        type: String
+    },
+    qualityClaim: {
+        type: String
+    }
+    
+    
+})
+
+const orderSchema = new mongoose.Schema({
     id: {
         type: Number,
     },
@@ -10,7 +45,7 @@ const orderSchema = new mongoose.Schema({
     },
     productName: {
         type: String, 
-        required: true
+        // required: true
     },
     rate: {
         type: String, 
@@ -39,11 +74,11 @@ const orderSchema = new mongoose.Schema({
     voucherId:{
         type: String
     },
-    voucher: Array,
+    voucher: [voucherSchema],
     optionalFields: Array,
     items: Array,
     deductions: Object
     
 })
+module.exports = {order :mongoose.model("Order", orderSchema), voucher:mongoose.model("Voucher", voucherSchema)}
 
-module.exports = mongoose.model("Order", orderSchema);

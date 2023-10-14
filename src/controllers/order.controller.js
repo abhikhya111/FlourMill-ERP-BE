@@ -1,4 +1,4 @@
-const OrderModel = require("../models/order.model");
+const {order: OrderModel, voucher: voucherModel}  = require("../models/order.model");
 const PurchaseModel = require("../models/purchase.model");
 
 exports.placeOrder = async (req, res, next) => {
@@ -6,8 +6,12 @@ exports.placeOrder = async (req, res, next) => {
     } = req.body;
     const myId = Math.floor(Math.random() * 100);
     const voucherId = Math.floor(Math.random() * 100);
+    
     console.log("nono")
     try {
+        const voucherData = await voucherModel.create({
+            test: "abcd"
+        })
         const order = await OrderModel.create({
             id: myId,
             date: Date.now(),
@@ -20,8 +24,10 @@ exports.placeOrder = async (req, res, next) => {
             orderType,
             quantity,
             approvalStatus: "Pending",
-            voucherId:voucherId
+            voucherId:voucherId,
+            voucher:voucherData
         });
+        console.log()
         console.log("orders", order)
         res.status(201).json({ data: order, status: "success" });
     } catch (err) {
